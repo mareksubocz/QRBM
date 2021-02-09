@@ -34,6 +34,7 @@ class MSQRBM:
 
         self.n_visible = n_visible
         self.n_hidden = n_hidden
+        self.qpu = qpu
 
         self.w = (np.random.rand(self.n_visible, self.n_hidden) * 2 - 1) * 1
         self.visible_bias = (np.random.rand(self.n_visible) * 2 - 1) * 1
@@ -151,7 +152,7 @@ class MSQRBM:
             # persisntent CD takes v from previous iterations
             h = samp.sample_opposite_layer_pyqubo(old_v, self.visible_bias,
                                                   self.w, self.hidden_bias,
-                                                  qpu=qpu)
+                                                  qpu=self.qpu)
             # h = samp.sample_opposite_layer_pyqubo(v, self.visible_bias, self.w, self.hidden_bias)
 
             # print("h: ", h)
@@ -169,7 +170,7 @@ class MSQRBM:
             v_prim = samp.sample_opposite_layer_pyqubo(h, self.hidden_bias,
                                                        self.w.T,
                                                        self.visible_bias,
-                                                       qpu=qpu)
+                                                       qpu=self.qpu)
 
             # print("v_prim: ", v_prim)
 
@@ -182,7 +183,7 @@ class MSQRBM:
             h_prim = samp.sample_opposite_layer_pyqubo(v_prim,
                                                        self.visible_bias,
                                                        self.w, self.hidden_bias,
-                                                       qpu=qpu)
+                                                       qpu=self.qpu)
             # print("h_prim: ", h_prim)
 
             # 4 Compute the outer product of v' and h' and call this the negative gradient.
@@ -233,12 +234,12 @@ class MSQRBM:
                                                          self.visible_bias,
                                                          self.w,
                                                          self.hidden_bias,
-                                                         qpu=qpu)
+                                                         qpu=self.qpu)
             sample_output = samp.sample_opposite_layer_pyqubo(sample_h,
                                                               self.hidden_bias,
                                                               self.w.T,
                                                               self.visible_bias,
-                                                              qpu=qpu)
+                                                              qpu=self.qpu)
             learning_curve_plot.append(np.sum((np.array(v) - np.array(sample_output))**2))
 
 
@@ -253,17 +254,17 @@ class MSQRBM:
     def generate(self, test_img = None):
         sample_v = []
         if test_img == None:
-            sample_v = samp.sample_v(self.visible_bias, qpu=qpu)
+            sample_v = samp.sample_v(self.visible_bias, qpu=self.qpu)
         else:
             sample_v = test_img
         sample_h = samp.sample_opposite_layer_pyqubo(sample_v,
                                                      self.visible_bias, self.w,
-                                                     self.hidden_bias, qpu=qpu)
+                                                     self.hidden_bias, qpu=self.qpu)
         sample_output = samp.sample_opposite_layer_pyqubo(sample_h,
                                                           self.hidden_bias,
                                                           self.w.T,
                                                           self.visible_bias,
-                                                          qpu=qpu)
+                                                          qpu=self.qpu)
         return sample_output
 
 
