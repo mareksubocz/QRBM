@@ -87,7 +87,7 @@ class MSQRBM:
     #     self.get_Z()
     #     return self.samples
 
-    def train(self, training_data, len_x=1, len_y=1, epochs=50, lr=0.1, lr_decay=0.1, epoch_drop = None):
+    def train(self, training_data, len_x=1, len_y=1, epochs=50, lr=0.1, lr_decay=0.1, epoch_drop = None, momentum = 0, batch_size = None):
         """
             maximize the product of probabilities assigned to some training set V
             optimize the weight vector
@@ -111,17 +111,27 @@ class MSQRBM:
         if epoch_drop == None:
             epoch_drop = epochs / 5
 
+        # initial momentum velocity value
+        momentum_w = np.zeros((len(self.visible_bias), len(self.hidden_bias)))
+        momentum_v = np.zeros(len(self.visible_bias))
+        momentum_h = np.zeros(len(self.hidden_bias))
+
         for epoch in self.tqdm(range(epochs)):
             # single step
             # print("Training data len", len(training_data))
-
             # 1
             # 1.1 Take a training sample v
             random_selected_training_data_idx = epoch % len(training_data)
             # print("selected_training_data_idx: ", random_selected_training_data_idx)
 
             v = training_data[random_selected_training_data_idx]
-            # print("v: ", v)
+            old_v = v
+
+            if batch_size is not None:
+                if epoch % batch_size != 0:
+                    old_v = v_prim
+                else:
+                    print("old_v: ", old_v)
 
             # # 1.2 compute the probabilities of the hidden units
             # prob_h = sigmoid(self.hidden_bias + np.dot(v, self.w))
@@ -137,7 +147,9 @@ class MSQRBM:
             # print("prob_h: ", prob_h)
             # h = (np.random.rand(len(self.hidden_bias)) < prob_h).astype(int)
 
-            h = samp.sample_opposite_layer_pyqubo(v, self.visible_bias, self.w, self.hidden_bias)
+            # persisntent CD takes v from previous iterations
+            h = samp.sample_opposite_layer_pyqubo(old_v, self.visible_bias, self.w, self.hidden_bias)
+            # h = samp.sample_opposite_layer_pyqubo(v, self.visible_bias, self.w, self.hidden_bias)
 
             # print("h: ", h)
 
@@ -170,12 +182,21 @@ class MSQRBM:
 
             # 5 Let the update to the weight matrix W be the positive gradient minus the negative gradient,
             #        times some learning rate
-            self.w += lr * (pos_grad - neg_grad)
+            #this is for momentum (default value 0 doesn't change anything)
+
+            momentum_w = momentum * momentum_w + lr * (pos_grad - neg_grad)
+
+            self.w += momentum_w
             # print("w: ", self.w)
 
             # 6 Update the biases a and b analogously: a=epsilon (v-v'), b=epsilon (h-h')
-            self.visible_bias += lr * (np.array(v) - np.array(v_prim))
-            self.hidden_bias += lr * (np.array(h) - np.array(h_prim))
+            #momentum here
+
+            momentum_v = momentum * momentum_v + lr * (np.array(v) - np.array(v_prim))
+            momentum_h = momentum * momentum_h + lr * (np.array(h) - np.array(h_prim))
+
+            self.visible_bias += momentum_v
+            self.hidden_bias += momentum_h
             # print("visible_bias: ", self.visible_bias)
             # print("hidden_bias: ", self.hidden_bias)
 
