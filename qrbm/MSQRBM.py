@@ -132,8 +132,6 @@ class MSQRBM:
             if batch_size is not None:
                 if epoch % batch_size != 0:
                     old_v = v_prim
-                else:
-                    print("old_v: ", old_v)
 
             # # 1.2 compute the probabilities of the hidden units
             # prob_h = sigmoid(self.hidden_bias + np.dot(v, self.w))
@@ -225,7 +223,7 @@ class MSQRBM:
 
                 #learning_rate_decay
                 lr *= (1 - lr_decay)
-                print("lr = ", lr)
+                # print("lr = ", lr)
 
             #krzywa uczenia
             # sample_v = samp.sample_v(self.visible_bias)
