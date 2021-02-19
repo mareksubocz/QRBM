@@ -10,3 +10,7 @@ To download the default dataset, click here: [MNIST - a dataset of pictures of h
 
 ## Running the code
 The best way to run this code is to download the dataset and run all cells in the jupyter notebook.
+
+## Some results
+A plot showing how the generated digit zero changes for different number of digits trained by the quantum RBM with respect to the chain strength parameter.
+![alt text](https://github.com/mareksubocz/QRBM/blob/master/plots/animation.gif "Visualization of generated images based on changing chain strength and number of digits in the dataset")
