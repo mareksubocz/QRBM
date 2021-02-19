@@ -9,4 +9,4 @@ _In collaboration with [Mateusz Slysz](https://github.com/Matek1731)_
 To download the default dataset, click here: [MNIST - a dataset of pictures of handwritten digits with 28x28 pixel resolution](https://www.kaggle.com/oddrationale/mnist-in-csv)
 
 ## Running the code
-The best way to run this code is to start the jupyter notebook.
+The best way to run this code is to download the dataset and run all cells in the jupyter notebook.
