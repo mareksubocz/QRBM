@@ -1,0 +1,9 @@
+git+https://github.com/mareksubocz/jupyter-drawing-pad.git#egg=jupyter-drawing-pad
+pillow
+ipywidgets
+matplotlib
+dwave-ocean-sdk
+jupyter
+opencv-python
+tqdm
+
