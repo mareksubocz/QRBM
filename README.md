@@ -7,7 +7,7 @@ _In collaboration with [Mateusz Slysz](https://github.com/Matek1731)_
 
 ## Demo
 
-To run demo, click on the badge below:
+To run demo, click on the badge below: 
 
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mareksubocz/QRBM/HEAD?urlpath=voila%2Frender%2FDemo.ipynb)
 
