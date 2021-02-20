@@ -9,7 +9,7 @@ _In collaboration with [Mateusz Slysz](https://github.com/Matek1731)_
 
 To run demo, click on the badge below:
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mareksubocz/QRBM/12e76e33ec4bbc015d4f8b092a61a7e7e1c1f136?filepath=Demo.ipynb)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mareksubocz/QRBM/HEAD?urlpath=voila%2Frender%2FDemo.ipynb)
 
 ## Dataset
 To download the default dataset, click here: [MNIST - a dataset of pictures of handwritten digits with 28x28 pixel resolution](https://www.kaggle.com/oddrationale/mnist-in-csv)
