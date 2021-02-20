@@ -2,6 +2,7 @@ import copy
 import operator
 import random
 
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -287,6 +288,23 @@ class MSQRBM:
 
         return min_sum
 
+    def save(self, filename):
+        with np.printoptions(threshold=sys.maxsize):
+            parameters = [str(self.n_hidden),
+                          str(self.n_visible),
+                          np.array_repr(self.visible_bias),
+                          np.array_repr(self.hidden_bias),
+                          np.array_repr(self.w)]
+            with open(filename, 'w') as file:
+                file.write('#'.join(parameters))
 
 
-
+    def load(self, filename):
+        with open(filename) as file:
+            res = file.read()
+            parameters = res.split('#')
+            self.n_hidden = eval(parameters[0])
+            self.n_visible = eval(parameters[1])
+            self.visible_bias = eval('np.'+parameters[2])
+            self.hidden_bias = eval('np.'+parameters[3])
+            self.w = eval('np.'+parameters[4])

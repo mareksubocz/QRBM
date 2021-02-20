@@ -7,7 +7,7 @@ def sample_opposite_layer_minorminer(v, layer, weights, opposite_layer: int):
 from pyqubo import Binary
 import tabu
 
-def sample_opposite_layer_pyqubo(v, layer, weights, opposite_layer: int,
+def sample_opposite_layer_pyqubo(v, layer, weights, opposite_layer,
                                  qpu=False, chain_strength=2, num_reads=1):
     # initialize Hamiltonian
     H = 0
