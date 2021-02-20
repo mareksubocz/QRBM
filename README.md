@@ -5,11 +5,17 @@ _In collaboration with [Mateusz Slysz](https://github.com/Matek1731)_
 
 **NOTE:** previous repository utilizing IBM's QPU moved to [QRBM-qiskit](https://github.com/mareksubocz/QRBM-qiskit)
 
+## Demo
+
+To run demo, click on the badge below:
+
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mareksubocz/QRBM/12e76e33ec4bbc015d4f8b092a61a7e7e1c1f136?filepath=Demo.ipynb)
+
 ## Dataset
 To download the default dataset, click here: [MNIST - a dataset of pictures of handwritten digits with 28x28 pixel resolution](https://www.kaggle.com/oddrationale/mnist-in-csv)
 
-## Running the code
-The best way to run this code is to download the dataset and run all cells in the jupyter notebook.
+## Train the RBM yourself
+The best way to run this code is to download the dataset and run all cells in the [jupyter notebook](qrbm_reconstruct_img.ipynb).
 
 ## Some results
 A plot showing how the generated digit zero changes for different number of digits trained by the quantum RBM with respect to the chain strength parameter.
