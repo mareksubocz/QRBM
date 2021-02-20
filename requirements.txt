@@ -4,6 +4,6 @@ ipywidgets
 matplotlib
 dwave-ocean-sdk
 jupyter
-opencv-python
+opencv
 tqdm
 
